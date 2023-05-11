@@ -1,6 +1,3 @@
-#ifndef UTILS_INTLIST_H
-#define UTILS_INTLIST_H
-
 //===-- utils/intlist.h - IntList ---------------------------------*- C -*-===//
 //
 // Defines the IntList type and its functions.
@@ -8,6 +5,9 @@
 // It is implemented as a linked list of integers.
 //
 //===----------------------------------------------------------------------===//
+
+#ifndef UTILS_INTLIST_H
+#define UTILS_INTLIST_H
 
 typedef struct IntNode {
     int value;

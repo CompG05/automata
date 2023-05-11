@@ -1,6 +1,3 @@
-#ifndef INTSET_H
-#define INTSET_H
-
 //===-- utils/inset.h - IntSet -----------------------------------*- C -*-===//
 //
 // Defines the IntSet type and its functions.
@@ -8,6 +5,9 @@
 // It is implemented as a linked list of integers.
 //
 //===----------------------------------------------------------------------===//
+
+#ifndef INTSET_H
+#define INTSET_H
 
 #include "intlist.h"
 
