@@ -16,6 +16,9 @@ typedef struct IntSet {
     IntList *list;
 } IntSet;
 
+typedef struct IntSetIterator {
+    IntListIterator *iterator;
+} IntSetIterator;
 
 /// Creates a new IntSet.
 IntSet *intset_create();
@@ -40,6 +43,21 @@ void intset_print(IntSet *set);
 
 /// Frees the given IntSet.
 void intset_free(IntSet *set);
+
+/// Returns a new IntSet with the values of the given IntSet.
+IntSet *intset_clone(IntSet *set);
+
+/// Returns an IntSet iterator
+IntSetIterator *intset_iterator_create(IntSet *set);
+
+/// Returns 1 if the given IntSet iterator has a next value, 0 otherwise.
+int intset_iterator_has_next(IntSetIterator *iterator);
+
+/// Returns the next value of the given IntSet iterator.
+int intset_iterator_next(IntSetIterator *iterator);
+
+/// Frees the given IntSet iterator.
+void intset_iterator_free(IntSetIterator *iterator);
 
 
 #endif // INTSET_H
