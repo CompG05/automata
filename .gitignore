@@ -4,6 +4,9 @@ CMakeFiles
 CMakeScripts
 cmake-build-debug/
 Testing
+build
+bin
+lib
 Makefile
 cmake_install.cmake
 install_manifest.txt
