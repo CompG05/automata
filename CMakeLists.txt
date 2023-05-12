@@ -14,6 +14,11 @@ add_library(automata src/automata/automata.c)
 add_executable(test_intlist ${test_dir}/test_intlist.c)
 target_link_libraries(test_intlist utils)
 
+add_executable(test_intset ${test_dir}/test_intset.c)
+target_link_libraries(test_intset utils)
+
 enable_testing()
 
 add_test(NAME test_intlist COMMAND $<TARGET_FILE:test_intlist>)
+add_test(NAME test_intset COMMAND $<TARGET_FILE:test_intset>)
+

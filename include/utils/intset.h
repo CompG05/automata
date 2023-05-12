@@ -38,6 +38,18 @@ int intset_equals(IntSet *set1, IntSet *set2);
 /// Returns the size of the given IntSet.
 int intset_size(IntSet *set);
 
+/// Adds the elements from an IntList to a IntSet.
+void *intset_append_list(IntSet *set, IntList *list);
+
+/// Returns a set created from an array.
+IntSet *intset_from_array(int *array, int i_start, int i_end);
+
+/// Returns the union of set1 and set2.
+IntSet *intset_union(IntSet *set1, IntSet *set2);
+
+/// Returns the intersection of set1 and set2.
+IntSet *intset_intersection(IntSet *set1, IntSet *set2);
+
 /// Prints the given IntSet.
 void intset_print(IntSet *set);
 

@@ -11,7 +11,7 @@ IntNode *intnode_create(int value) {
 }
 
 IntList *intlist_create() {
-    IntList *list = malloc(sizeof(IntList));
+    IntList *list = (IntList*) malloc(sizeof(IntList));
     list->head = intnode_create(0);
     list->size = 0;
     return list;
@@ -25,7 +25,7 @@ void intlist_add(IntList *list, int value) {
 }
 
 void intlist_insert(IntList *list, int value, int index) {
-    if (index >= list->size)
+    if (index > list->size)
         exit(EXIT_FAILURE);
 
     IntNode *node = intnode_create(value);
@@ -176,7 +176,7 @@ void intlist_free(IntList *list) {
 }
 
 IntListIterator *intlist_iterator_create(IntList *list) {
-    IntListIterator *it = malloc(sizeof(IntListIterator));
+    IntListIterator *it = (IntListIterator *) malloc(sizeof(IntListIterator));
     it->current = list->head->next;
     return it;
 }
