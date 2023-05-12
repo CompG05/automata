@@ -51,13 +51,13 @@ IntSet *intset_clone(IntSet *set);
 IntSetIterator *intset_iterator_create(IntSet *set);
 
 /// Returns 1 if the given IntSet iterator has a next value, 0 otherwise.
-int intset_iterator_has_next(IntSetIterator *iterator);
+int intset_iterator_has_next(IntSetIterator *it);
 
 /// Returns the next value of the given IntSet iterator.
-int intset_iterator_next(IntSetIterator *iterator);
+int intset_iterator_next(IntSetIterator *it);
 
 /// Frees the given IntSet iterator.
-void intset_iterator_free(IntSetIterator *iterator);
+void intset_iterator_free(IntSetIterator *it);
 
 
 #endif // INTSET_H

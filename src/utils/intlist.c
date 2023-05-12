@@ -115,6 +115,7 @@ void intlist_append_list(IntList *list1, IntList *list2) {
 IntList *intlist_clone(IntList *list) {
     IntList *new_list = intlist_create();
     intlist_append_list(new_list, list);
+    return new_list;
 }
 
 IntList *intlist_from_array(int *array, int i_start, int i_end) {

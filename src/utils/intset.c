@@ -54,3 +54,34 @@ void intset_print(IntSet *set){
     }
     printf("}");
 }
+
+void intset_free(IntSet *set){
+    IntList *list = set->list;
+    intlist_free(list);
+    free(set);
+}
+
+IntSet *intset_clone(IntSet *set){
+    IntSet *new_set = intset_create();
+    new_set->list = intlist_clone(set->list);
+    return new_set;
+}
+
+IntSetIterator *intset_iterator_create(IntSet *set){
+    IntSetIterator *it = malloc(sizeof(IntSetIterator));
+    it->iterator = intlist_iterator_create(set->list);
+    return it;
+}
+
+int intset_iterator_has_next(IntSetIterator *it){
+    return intlist_iterator_has_next(it->iterator);
+}
+
+int intset_iterator_next(IntSetIterator *it) {
+    return intlist_iterator_next(it->iterator);
+}
+
+void intset_iterator_free(IntSetIterator *it) {
+    intlist_iterator_free(it->iterator);
+    free(it);
+}
