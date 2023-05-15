@@ -8,6 +8,7 @@ int main() {
     if (intset_size(set) != 0) {
         printf("intset_create() failed\n");
         exit(EXIT_FAILURE);
+    }
 
     if (!intset_is_empty(set)) {
         printf("intset_is_empty() failed\n");
