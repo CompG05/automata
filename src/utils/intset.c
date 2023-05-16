@@ -135,6 +135,10 @@ int intset_iterator_next(IntSetIterator *it) {
     return intlist_iterator_next(it->iterator);
 }
 
+void intset_iterator_reset(IntSetIterator *it) {
+    intlist_iterator_reset(it->iterator);
+}
+
 void intset_iterator_free(IntSetIterator *it) {
     intlist_iterator_free(it->iterator);
     free(it);
