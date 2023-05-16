@@ -13,33 +13,50 @@
 #ifndef AUTOMATA_AUTOMATA_H
 #define AUTOMATA_AUTOMATA_H
 
-#import "utils/intset.h"
+#include "utils/intset.h"
+
+const int MAX_ALPHABET_SIZE = 127 - 32;
+const int LAMBDA_CODE = '_' - 32;
 
 typedef struct Automaton {
-    IntSet *states;
+    int num_states;
     IntSet *alphabet;
     IntSet ***transition_table; // (IntSet *) Matrix
     int initial_state;
     IntSet *final_states;
 } Automaton;
 
-/// Create a new automaton.
-Automaton *automaton_new(IntSet *states, IntSet *alphabet, int initial_state, IntSet *final_states);
+typedef struct Transition {
+  int from;
+  char symbol;
+  IntSet *to;
+} Transition;
 
-/// Free the memory allocated by the automaton.
-void automaton_free(Automaton *automaton);
+/// Create a new automaton.
+Automaton *automaton_create(int num_states, IntSet *alphabet, int initial_state, IntSet *final_states);
+
+/// Create a new transition.
+Transition *transition_create(int from, char symbol, IntSet *to);
+
+/// Free the transition.
+void transition_free(Transition *transition);
 
 /// Add a transition to the automaton.
 void automaton_add_transition(Automaton *automaton, int state, char symbol, int next_state);
 
+/// Free the memory allocated by the automaton.
+void automaton_free(Automaton *automaton);
+
 /// Return 1 if the automaton accepts the string, 0 otherwise.
 int automaton_accepts(Automaton *automaton, char *string);
 
+/// Return a deterministic automaton equivalent to the given one.
+/// Parameters:
+/// - automaton: the automaton to determinize.
+Automaton *automaton_determinize(Automaton *automaton);
+
 /// Print the automaton.
 void automaton_print(Automaton *automaton);
-
-/// Determinize the automaton.
-Automaton *automaton_determinize(Automaton *automaton);
 
 /// Print the automaton in the DOT format.
 void automaton_print_dot(Automaton *automaton);
