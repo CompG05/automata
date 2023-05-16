@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "utils/intset.h"
 #include "utils/intlist.h"
@@ -19,6 +20,19 @@ void intset_add(IntSet *set, int value){
 int intset_contains(IntSet *set, int value){
     IntList *list = set->list;
     return intlist_contains(list, value);
+}
+
+int intset_contains_any(IntSet *set, IntSet *src) {
+    int ret = 0;
+    IntSetIterator *it = intset_iterator_create(src);
+    while (intset_iterator_has_next(it)) {
+        if (intset_contains(set, intset_iterator_next(it))) {
+            ret = 1;
+            break;
+        }
+    }
+    intset_iterator_free(it);
+    return ret;
 }
 
 int intset_is_empty(IntSet *set){
@@ -43,9 +57,13 @@ int intset_size(IntSet *set) {
     return intlist_size(list);
 }
 
-void *intset_append_list(IntSet *set, IntList *list) {
+void intset_append_list(IntSet *set, IntList *list) {
     intlist_append_list(set->list, list);
     intlist_remove_duplicates(set->list);
+}
+
+void intset_append_set(IntSet *dst, IntSet *src) {
+    intset_append_list(dst, src->list);
 }
 
 IntSet *intset_from_array(int *array, int i_start, int i_end) {

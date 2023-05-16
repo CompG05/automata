@@ -11,7 +11,7 @@ IntNode *intnode_create(int value) {
 }
 
 IntList *intlist_create() {
-    IntList *list = (IntList*) malloc(sizeof(IntList));
+    IntList *list = (IntList *)malloc(sizeof(IntList));
     list->head = intnode_create(0);
     list->size = 0;
     return list;
@@ -176,7 +176,8 @@ void intlist_free(IntList *list) {
 }
 
 IntListIterator *intlist_iterator_create(IntList *list) {
-    IntListIterator *it = (IntListIterator *) malloc(sizeof(IntListIterator));
+    IntListIterator *it = (IntListIterator *)malloc(sizeof(IntListIterator));
+    it->first = list->head->next;
     it->current = list->head->next;
     return it;
 }
@@ -187,6 +188,10 @@ int intlist_iterator_next(IntListIterator *it) {
     int value = it->current->value;
     it->current = it->current->next;
     return value;
+}
+
+void intlist_iterator_reset(IntListIterator *it) {
+  it->current = it->first;
 }
 
 void intlist_iterator_free(IntListIterator *it) { free(it); }

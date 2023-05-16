@@ -20,6 +20,7 @@ typedef struct IntList {
 } IntList;
 
 typedef struct IntListIterator {
+    IntNode *first;
     IntNode *current;
 } IntListIterator;
 
@@ -79,6 +80,9 @@ int intlist_iterator_has_next(IntListIterator *it);
 
 /// Returns the next value of the given IntListIterator.
 int intlist_iterator_next(IntListIterator *it);
+
+/// Resets the iterator.
+void intlist_iterator_reset(IntListIterator *it);
 
 /// Frees the given IntListIterator.
 void intlist_iterator_free(IntListIterator *it);
