@@ -44,8 +44,10 @@ int intset_equals(IntSet *set1, IntSet *set2){
         return 0;
     IntSetIterator *it = intset_iterator_create(set1);
     while (intset_iterator_has_next(it)) {
-        if (! intset_contains(set2, intset_iterator_next(it)))
+        if (! intset_contains(set2, intset_iterator_next(it))){
+            intset_iterator_free(it);
             return 0;
+        }
     }
 
     intset_iterator_free(it);
@@ -68,6 +70,7 @@ void intset_append_set(IntSet *dst, IntSet *src) {
 
 IntSet *intset_from_array(int *array, int i_start, int i_end) {
     IntSet *set = intset_create();
+    intlist_free(set->list);
     set->list = intlist_from_array(array, i_start, i_end);
     intlist_remove_duplicates(set->list);
     return set;
@@ -110,6 +113,21 @@ void intset_print(IntSet *set) {
     intset_iterator_free(it);
 }
 
+void intset_print_chars(IntSet *set) {
+    if (intset_is_empty(set)) {
+        printf("{}");
+        return;
+    }
+    IntSetIterator *it = intset_iterator_create(set);
+    printf("{%c", intset_iterator_next(it));
+    while (intset_iterator_has_next(it)) {
+         printf(", %c", intset_iterator_next(it));
+    }
+    printf("}");
+
+    intset_iterator_free(it);
+}
+
 void intset_free(IntSet *set) {
     intlist_free(set->list);
     free(set);
@@ -117,6 +135,7 @@ void intset_free(IntSet *set) {
 
 IntSet *intset_clone(IntSet *set) {
     IntSet *new_set = intset_create();
+    intlist_free(new_set->list);
     new_set->list = intlist_clone(set->list);
     return new_set;
 }

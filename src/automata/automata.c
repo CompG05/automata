@@ -8,6 +8,10 @@
 
 // Path: automata/automata.c
 
+int code_of(char c) {
+    return (int)c - 32;
+}
+
 Automaton *automaton_create(int num_states, IntSet *alphabet, int initial_state, IntSet *final_states) {
     Automaton *a = (Automaton *)malloc(sizeof(Automaton));
 
@@ -43,10 +47,10 @@ void transition_free(Transition *transition) {
 }
 
 void automaton_add_transition(Automaton *automaton, int state, char symbol, int next_state) {
-    if (automaton->transition_table[state][symbol] == NULL)
-        automaton->transition_table[state][symbol] = intset_create();
+    if (automaton->transition_table[state][code_of(symbol)] == NULL)
+        automaton->transition_table[state][code_of(symbol)] = intset_create();
 
-    intset_add(automaton->transition_table[state][symbol], next_state);
+    intset_add(automaton->transition_table[state][code_of(symbol)], next_state);
 }
 
 void automaton_free(Automaton *automaton) {
@@ -71,11 +75,11 @@ int automaton_accepts(Automaton *automaton, char *string) {
     for (int i = 0; i < strlen(string); i++) {
         char symbol = string[i];
 
-        if (automaton->transition_table[current_state][symbol] == NULL)
+        if (automaton->transition_table[current_state][code_of(symbol)] == NULL)
             return 0;
 
         // Get the only element in the set
-        IntSetIterator *it = intset_iterator_create(automaton->transition_table[current_state][symbol]);
+        IntSetIterator *it = intset_iterator_create(automaton->transition_table[current_state][code_of(symbol)]);
         current_state = intset_iterator_next(it);
         intset_iterator_free(it);
     }
@@ -126,8 +130,9 @@ IntSet *move(Automaton *automaton, IntSet *states, char symbol) {
     while (intset_iterator_has_next(it)) {
         state = intset_iterator_next(it);
 
-        moved = automaton->transition_table[state][symbol];
-        intset_append_set(move_set, moved);
+        moved = automaton->transition_table[state][code_of(symbol)];
+        if (moved != NULL)
+            intset_append_set(move_set, moved);
     }
     intset_iterator_free(it);
 
@@ -209,12 +214,12 @@ Automaton *automaton_determinize(Automaton *automaton) {
 
 void automaton_print(Automaton *automaton) {
     IntSet *states = intset_create();
-    for (int i = 0; i < automaton->num_states; i++)
+    for (int i = automaton->num_states-1; i >= 0; i--)
         intset_add(states, i);
 
     printf("Automaton:");
     printf("\n  States: "); intset_print(states); intset_free(states);
-    printf("\n  Alphabet: "); intset_print(automaton->alphabet);
+    printf("\n  Alphabet: "); intset_print_chars(automaton->alphabet);
     printf("\n  Initial state: %d", automaton->initial_state);
     printf("\n  Final states: "); intset_print(automaton->final_states);
 
