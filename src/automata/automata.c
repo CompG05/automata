@@ -154,7 +154,7 @@ Automaton *automaton_determinize(Automaton *automaton) {
     final_states = intset_create();
     for (int state_set = 0; state_set < t_size; state_set++) {
         while (intset_iterator_has_next(alphabet_it)) {
-            symbol = intset_iterator_next(alphabet_it);
+            symbol = (char)intset_iterator_next(alphabet_it);
 
             move_set = move(automaton, T[state_set], symbol);
             M = lambda_closure(automaton, move_set);
@@ -189,7 +189,8 @@ Automaton *automaton_determinize(Automaton *automaton) {
     for (int i = 0; i < t_size; i++)
         intset_free(T[i]);
 
-    Automaton *dfa = automaton_create(t_size, intset_clone(automaton->alphabet), 0, final_states);
+    Automaton *dfa = automaton_create(t_size, intset_clone(automaton->alphabet),
+                                      0, final_states);
 
     IntSetIterator *to_it;
     for (int i = 0; i < transitions_size; i++) {
@@ -211,20 +212,21 @@ void automaton_print(Automaton *automaton) {
     for (int i = 0; i < automaton->num_states; i++)
         intset_add(states, i);
 
-    printf("Automaton:\n");
-    printf("  States: "); intset_print(states);
-    printf("  Alphabet: "); intset_print(automaton->alphabet);
-    printf("  Initial state: %d\n", automaton->initial_state);
-    printf("  Final states: "); intset_print(automaton->final_states);
+    printf("Automaton:");
+    printf("\n  States: "); intset_print(states); intset_free(states);
+    printf("\n  Alphabet: "); intset_print(automaton->alphabet);
+    printf("\n  Initial state: %d", automaton->initial_state);
+    printf("\n  Final states: "); intset_print(automaton->final_states);
 
-    printf("  Transitions:\n");
+    printf("\n  Transitions:");
     for (int i = 0; i < automaton->num_states; i++) {
         for (int j = 0; j < MAX_ALPHABET_SIZE; j++) {
             IntSet *to = automaton->transition_table[i][j];
 
             if (to != NULL) {
-                printf("    %d -- %c --> ", i, j + 32); intset_print(to);
+                printf("\n    %d -- %c --> ", i, j + 32); intset_print(to);
             }
         }
     }
+    printf("");
 }
