@@ -68,6 +68,9 @@ char *intset_to_string(IntSet *set);
 /// Prints the given IntSet.
 void intset_print(IntSet *set);
 
+/// Prints the given IntSet as a set of chars.
+void intset_print_chars(IntSet *set);
+
 /// Frees the given IntSet.
 void intset_free(IntSet *set);
 

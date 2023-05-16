@@ -15,8 +15,8 @@
 
 #include "utils/intset.h"
 
-const int MAX_ALPHABET_SIZE = 127 - 32;
-const int LAMBDA_CODE = '_' - 32;
+static const int MAX_ALPHABET_SIZE = 127 - 32;
+static const int LAMBDA_CODE = '_' - 32;
 
 typedef struct Automaton {
     int num_states;
@@ -46,6 +46,21 @@ void automaton_add_transition(Automaton *automaton, int state, char symbol, int 
 
 /// Free the memory allocated by the automaton.
 void automaton_free(Automaton *automaton);
+
+/// Return the set of states reachable from the given set by lambda
+/// Parameters:
+/// - automaton: the automaton.
+/// - states: the set of states.
+/// Return:
+/// - the set of states reachable from 'states' by lambda.
+IntSet *lambda_closure(Automaton *automaton, IntSet *states);
+
+/// Return the set of states reachable from the given set by the given symbol.
+/// Parameters:
+/// - automaton: the automaton.
+/// - states: the source set of states.
+/// - symbol: the symbol.
+IntSet *move(Automaton *automaton, IntSet *states, char symbol);
 
 /// Return 1 if the automaton accepts the string, 0 otherwise.
 int automaton_accepts(Automaton *automaton, char *string);
