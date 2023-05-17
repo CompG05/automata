@@ -88,7 +88,6 @@ Automaton *read_automaton(char filename[]) {
     }
 
     while ((read = getline(&line, &len, fp)) != -1) {
-        // printf("%s\n", line);
         if (!regexec(&initial_regex, line, 0, NULL, 0)) { // If the line defines an initial state
             start = parse_initial(line);
             if (start >= num_states)
@@ -103,7 +102,7 @@ Automaton *read_automaton(char filename[]) {
             update_alphabet(line, alphabet);
         }
     }
-//    free(line);
+   free(line);
 
     Automaton *a = automaton_create(num_states, alphabet, start, finals);
 
@@ -113,7 +112,7 @@ Automaton *read_automaton(char filename[]) {
             parse_transitions(line, a);
         }
     }
-//    free(line);
+   free(line);
     regfree(&initial_regex);
     regfree(&transition_regex);
     regfree(&final_regex);
