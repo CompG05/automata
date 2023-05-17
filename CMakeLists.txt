@@ -8,9 +8,16 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${Automata_SOURCE_DIR}/lib)
 
 set(test_dir ${Automata_SOURCE_DIR}/tests)
 
+set(automataio_sources src/automataio/read_automata.c src/automataio/write_automata.c)
+
 add_library(utils src/utils/intlist.c src/utils/intset.c)
 add_library(automata src/automata/automata.c)
 target_link_libraries(automata m)
+
+add_library(automataio ${automataio_sources})
+
+add_executable(main src/main.c)
+target_link_libraries(main automataio automata utils)
 
 add_executable(test_intlist ${test_dir}/test_intlist.c)
 target_link_libraries(test_intlist utils)
