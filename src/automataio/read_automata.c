@@ -63,7 +63,7 @@ void update_alphabet(char *s, IntSet *alphabet) {
 
 Automaton *read_automaton(char filename[]) {
     FILE *fp;
-    char *line;
+    char *line = NULL;
     size_t len;
     ssize_t read;
 
@@ -82,8 +82,10 @@ Automaton *read_automaton(char filename[]) {
     IntSet *finals = intset_create();
 
     fp = fopen(filename, "r");
-    if (fp == NULL)
+    if (fp == NULL) {
+        printf("Error opening file\n");
         exit(EXIT_FAILURE);
+    }
 
     while ((read = getline(&line, &len, fp)) != -1) {
         // printf("%s\n", line);
