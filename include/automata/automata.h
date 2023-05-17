@@ -32,6 +32,10 @@ typedef struct Transition {
   IntSet *to;
 } Transition;
 
+/// Return the matrix index of the given symbol.
+/// Does not return the ascii code.
+int code_of(char symbol);
+
 /// Create a new automaton.
 Automaton *automaton_create(int num_states, IntSet *alphabet, int initial_state, IntSet *final_states);
 
