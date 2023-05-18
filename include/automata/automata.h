@@ -80,4 +80,13 @@ void automaton_print(Automaton *automaton);
 /// Print the automaton in the DOT format.
 void automaton_print_dot(Automaton *automaton);
 
+/// Return the union of the two automata.
+Automaton *automaton_union(Automaton *a1, Automaton *a2);
+
+/// Return the concatenation of the two automata.
+Automaton *automaton_concat(Automaton *a1, Automaton *a2);
+
+/// Return the Kleene star of the automaton.
+Automaton *automaton_kclosure(Automaton *automaton);
+
 #endif // AUTOMATA_AUTOMATA_H

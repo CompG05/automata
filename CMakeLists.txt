@@ -8,11 +8,12 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${Automata_SOURCE_DIR}/lib)
 
 set(test_dir ${Automata_SOURCE_DIR}/tests)
 
+set(automata_sources src/automata/automata.c src/automata/automata_ops.c)
 set(utils_sources src/utils/intlist.c src/utils/intset.c)
 set(automataio_sources src/automataio/read_automata.c src/automataio/write_automata.c)
 
 add_library(utils ${utils_sources})
-add_library(automata src/automata/automata.c)
+add_library(automata ${automata_sources})
 target_link_libraries(automata m)
 
 add_library(automataio ${automataio_sources})
@@ -29,10 +30,13 @@ target_link_libraries(test_automata automata utils)
 add_executable(test_integrity ${test_dir}/test_integrity.c)
 target_link_libraries(test_integrity automataio automata utils)
 
+add_executable(test_automata_ops ${test_dir}/test_automata_ops.c)
+target_link_libraries(test_automata_ops automata automataio utils)
+
 enable_testing()
 
 add_test(NAME test_intlist COMMAND $<TARGET_FILE:test_intlist>)
 add_test(NAME test_intset COMMAND $<TARGET_FILE:test_intset>)
 add_test(NAME test_automata COMMAND $<TARGET_FILE:test_automata>)
 add_test(NAME test_integrity COMMAND $<TARGET_FILE:test_integrity>)
-
+add_test(NAME test_automata_ops COMMAND $<TARGET_FILE:test_automata_ops>)
