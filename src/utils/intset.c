@@ -11,6 +11,19 @@ IntSet *intset_create(){
     return set;
 }
 
+IntSet *intset_create_from_value(int value) {
+    IntSet *set = intset_create();
+    intset_add(set, value);
+    return set;
+}
+
+IntSet *intset_create_from_range(int start, int end) {
+    IntSet *set = intset_create();
+    for (int i = end-1; i >= start; i--)
+        intset_add(set, i);
+    return set;
+}
+
 void intset_add(IntSet *set, int value){
     IntList *list = set->list;
     intlist_add(list, value);

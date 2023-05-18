@@ -23,6 +23,15 @@ typedef struct IntSetIterator {
 /// Creates a new IntSet.
 IntSet *intset_create();
 
+/// Creates a new IntSet with the given value.
+IntSet *intset_create_from_value(int value);
+
+/// Creates a new IntSet with the values in the given range.
+/// Parameters:
+/// - start: the start of the range (inclusive).
+/// - end: the end of the range (exclusive).
+IntSet *intset_create_from_range(int start, int end);
+
 /// Adds the given value to the given IntSet.
 void intset_add(IntSet *set, int value);
 
