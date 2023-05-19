@@ -88,3 +88,29 @@ Automaton *automaton_concat(Automaton *a1, Automaton *a2) {
 
     return concat_autom;
 }
+
+Automaton *automaton_kclosure(Automaton *automaton) {
+    int num_states = automaton->num_states + 2;
+    IntSet *alphabet = intset_clone(automaton->alphabet);
+    int start_state = 0;
+    IntSet *final_states = intset_create_from_value(num_states - 1);
+
+    int q_0 = 1; // To shift the states of the automaton
+
+    Automaton *kclosure_autom = automaton_create(num_states, alphabet, start_state, final_states);
+
+    clone_transition_table(automaton, kclosure_autom, q_0);
+    automaton_add_transition(kclosure_autom, 0, '_', q_0);
+    automaton_add_transition(kclosure_autom, 0, '_', num_states - 1);
+
+    // For each f ∈ F, add (f -- λ --> q_0), (f -- λ --> q_f) to δ
+    IntSetIterator *final_states_it = intset_iterator_create(automaton->final_states);
+    while (intset_iterator_has_next(final_states_it)) {
+        int f = intset_iterator_next(final_states_it);
+        automaton_add_transition(kclosure_autom, f + q_0, '_', q_0);
+        automaton_add_transition(kclosure_autom, f + q_0, '_', num_states - 1);
+    }
+
+    return kclosure_autom;
+}
+
