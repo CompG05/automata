@@ -35,10 +35,9 @@ Automaton *automaton_union(Automaton *a1, Automaton *a2) {
     int num_states = a1->num_states + a2->num_states + 2;
     IntSet *alphabet = intset_union(a1->alphabet, a2->alphabet);
     int start_state = 0;
-    IntSet *final_state = intset_create();
-    intset_add(final_state, num_states - 1);
+    IntSet *final_state = intset_create_from_value(num_states - 1);
 
-    int d1 = 1; // To shift the states of a1
+    int d1 = 1;                   // To shift the states of a1
     int d2 = a1->num_states + d1; // To shift the states of a2
 
     Automaton *union_autom = automaton_create(num_states, alphabet, start_state, final_state);
@@ -60,4 +59,32 @@ Automaton *automaton_union(Automaton *a1, Automaton *a2) {
     intset_iterator_free(final_states_it);
 
     return union_autom;
+}
+
+Automaton *automaton_concat(Automaton *a1, Automaton *a2) {
+    int num_states = a1->num_states + a2->num_states;
+    IntSet *alphabet = intset_union(a1->alphabet, a2->alphabet);
+    int start_state = 0;
+    IntSet *final_states = intset_create();
+
+    // For each f ∈ F_2, add f+Δ_2 to F
+    IntSetIterator *final_states_it = intset_iterator_create(a2->final_states);
+    while (intset_iterator_has_next(final_states_it))
+        intset_add(final_states, intset_iterator_next(final_states_it) + a1->num_states);
+    intset_iterator_free(final_states_it);
+
+    int q_02 = a1->num_states; // The old start state of a2
+
+    Automaton *concat_autom = automaton_create(num_states, alphabet, start_state, final_states);
+
+    clone_transition_table(a1, concat_autom, 0);
+    clone_transition_table(a2, concat_autom, a1->num_states);
+
+    // For each f ∈ F_1, add (f -- λ --> q_02) to δ
+    final_states_it = intset_iterator_create(a1->final_states);
+    while (intset_iterator_has_next(final_states_it))
+        automaton_add_transition(concat_autom, intset_iterator_next(final_states_it), '_', q_02);
+    intset_iterator_free(final_states_it);
+
+    return concat_autom;
 }
