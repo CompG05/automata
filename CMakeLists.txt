@@ -33,6 +33,9 @@ target_link_libraries(test_integrity automataio automata utils)
 add_executable(test_automata_ops ${test_dir}/test_automata_ops.c)
 target_link_libraries(test_automata_ops automata automataio utils)
 
+add_executable(test_minimize ${test_dir}/test_minimize.c)
+target_link_libraries(test_minimize automata automataio utils)
+
 enable_testing()
 
 add_test(NAME test_intlist COMMAND $<TARGET_FILE:test_intlist>)

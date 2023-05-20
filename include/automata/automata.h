@@ -74,6 +74,11 @@ int automaton_accepts(Automaton *automaton, char *string);
 /// - automaton: the automaton to determinize.
 Automaton *automaton_determinize(Automaton *automaton);
 
+/// Return a minimized automaton equivalent to the given one.
+/// Parameters:
+/// - automaton: the automaton to minimize.
+Automaton *automaton_minimize(Automaton *automaton);
+
 /// Print the automaton.
 void automaton_print(Automaton *automaton);
 

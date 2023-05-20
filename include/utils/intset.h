@@ -38,6 +38,9 @@ void intset_add(IntSet *set, int value);
 /// Returns 1 if the given IntSet contains the given value, 0 otherwise.
 int intset_contains(IntSet *set, int value);
 
+/// Returns an arbitrary element of the set
+int intset_get_one(IntSet *set);
+
 /// Returns 1 if the intset contains any of the values of src, 0 otherwise.
 /// Parameters:
 /// - set: the IntSet to check.

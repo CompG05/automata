@@ -35,6 +35,10 @@ int intset_contains(IntSet *set, int value){
     return intlist_contains(list, value);
 }
 
+int intset_get_one(IntSet *set) {
+    return intlist_get(set->list, 0);
+}
+
 int intset_contains_any(IntSet *set, IntSet *src) {
     int ret = 0;
     IntSetIterator *it = intset_iterator_create(src);
