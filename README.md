@@ -1,6 +1,6 @@
 # automata
 
-This projects is for the 1^{st} and 2^{nd} PAs for the Automata and Languajes course
+This projects is for the 1<sup>st</sup> and 2<sup>nd</sup> PAs for the Automata and Languajes course
 
 Authors:
     - D'Autilio Joel
@@ -16,7 +16,8 @@ To build, execute [build.sh](build.sh).
 
 
 The main tests can be executed by changing into the bin/ dir and running:
-    - test_integrity: tests reading, writing, determinizing and acceptance of strings in a single integral test, corresponding to the 1st PA ([tests/test_integrity.c](tests/test_integrity.c))
-    - test_integrity2: tests union, concatenation, kleene closure and minimization, corresponding to the 2nd PA ([tests/test_integrity2.c](tests/test_integrity2.c))
+    
+- test_integrity: tests reading, writing, determinizing and acceptance of strings in a single integral test, corresponding to the 1<sup>st</sup> PA ([tests/test_integrity.c](tests/test_integrity.c))
+- test_integrity2: tests union, concatenation, kleene closure and minimization, corresponding to the 2<sup>nd</sup> PA ([tests/test_integrity2.c](tests/test_integrity2.c))
 
 Other tests can be found in the bin/ directory, like some unit tests.
