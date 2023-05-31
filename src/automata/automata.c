@@ -327,7 +327,8 @@ void quotient_set(Automaton *automaton, IntSet **result[], int *n) {
 }
 
 Automaton *automaton_minimize(Automaton* automaton) {
-    IntSet **qset = (IntSet **)malloc(automaton->num_states * sizeof(IntSet *));
+    // IntSet **qset = (IntSet **)malloc(automaton->num_states * sizeof(IntSet *));
+    IntSet **qset;
     int num_states = -1;
 
     quotient_set(automaton, &qset, &num_states);
@@ -366,6 +367,7 @@ Automaton *automaton_minimize(Automaton* automaton) {
     intset_iterator_free(alphabet_it);
     for (int i = 0; i < num_states; i++)
         intset_free(qset[i]);
+    free(qset);
 
     return minimized;
 }
@@ -394,5 +396,5 @@ void automaton_print(Automaton *automaton) {
             }
         }
     }
-    printf("");
+    printf("\n");
 }
