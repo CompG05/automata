@@ -15,7 +15,7 @@ The main files are:
 
 - [automata.c](src/automata/automata.c) contains an implementation for Non-Deterministic Finite Automata.
 - [automata_ops.c](src/automata/automata_ops.c) contains the operations of union, concatenation and Kleene closure for automata.
-- [automata_read.c](src/automataio/automata_read.c) and [automata_write.c](src/automataio/automata_write.c) contain functions to read and write automata to a file.
+- [read_automata.c](src/automataio/read_automata.c) and [write_automata.c](src/automataio/write_automata.c) contain functions to read and write automata to a file.
 
 
 The main tests can be executed by changing into the bin/ dir and running:
