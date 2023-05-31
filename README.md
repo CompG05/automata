@@ -3,12 +3,15 @@
 This projects is for the 1<sup>st</sup> and 2<sup>nd</sup> PAs for the Automata and Languajes course
 
 Authors:
-    - D'Autilio Joel
-    - Rossi Pablo
+
+- D'Autilio Joel
+- Rossi Pablo
 
 This project requires cmake for building.
 
 To build, execute [build.sh](build.sh).
+
+The main files are:
 
 - [automata.c](src/automata/automata.c) contains an implementation for Non-Deterministic Finite Automata.
 - [automata_ops.c](src/automata/automata_ops.c) contains the operations of union, concatenation and Kleene closure for automata.
