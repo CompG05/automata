@@ -1,6 +1,6 @@
 # automata
 
-This projects is for the 1<sup>st</sup> and 2<sup>nd</sup> PAs for the Automata and Languajes course
+This project is for the 1<sup>st</sup> and 2<sup>nd</sup> PAs for the Automata and Languajes course
 
 Authors:
 
