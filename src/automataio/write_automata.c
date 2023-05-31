@@ -18,7 +18,9 @@ void write_automaton(Automaton *a, char filename[]) {
     fputs("\n", f);
 
     // Write transitions
-    IntSetIterator *alphabet_it = intset_iterator_create(a->alphabet);
+    IntSet *alphabet_and_lambda = intset_clone(a->alphabet);
+    intset_add(alphabet_and_lambda, '_');
+    IntSetIterator *alphabet_it = intset_iterator_create(alphabet_and_lambda);
     char symbol;
     char symbols[MAX_ALPHABET_SIZE];
     int symbols_count = 0;
@@ -46,6 +48,7 @@ void write_automaton(Automaton *a, char filename[]) {
         }
     }
     intset_iterator_free(alphabet_it);
+    intset_free(alphabet_and_lambda);
 
     fputs("\n", f);
 
