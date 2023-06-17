@@ -1,0 +1,38 @@
+G = <V, A, P, S>
+c
+A = { '|', '.', '*', '(', ')', a, b, c }
+P:
+    <E> := <E> "|" <T>
+    <E> := <T>
+    <T> := <T> "." <F>
+    <T> := <F>
+    <F> := <P> "*"
+    <F> := <P>
+    <P> := "(" <E> ")"
+    <P> := <L>
+    <L> := a | b | c
+
+
+G -> LL(1)
+G = <V', A, P', S>
+V' = { E, E', T', T, F, P, P', L }
+P':
+     0: <S>  := <E>#                SD = (, a, b, c
+     1: <E>  := <T><E'>             SD = (, a, b, c
+     2: <E'> := "|"<T><E'>          SD = |
+     3: <E'> := lambda              SD = #, )
+     4: <T>  := <F><T'>             SD = (, a, b, c
+     5: <T'> := "."<F><T'>          SD = .
+     6: <T'> := lambda              SD = |, #, )
+     7: <F>  := <P><F'>             SD = (, a, b, c
+     8: <F'> := "*"                 SD = *
+     9: <F'> := lambda              SD = ., |, #, )
+    10: <P>  := "(" <E> ")"         SD = (
+    11: <P>  := <L>                 SD = a, b, c
+    12: <L>  := a                   SD = a
+    13: <L>  := b                   SD = b
+    14: <L>  := c                   SD = c
+
+G es LL(1) ya que no hay dos producciones con misma parte izquierda e intersección
+distinta de vacía en sus símbolos directrices.
+
