@@ -18,6 +18,9 @@ target_link_libraries(automata m)
 
 add_library(automataio ${automataio_sources})
 
+add_library(parser src/parser/parser.c)
+target_link_libraries(parser utils)
+
 add_executable(test_intlist ${test_dir}/test_intlist.c)
 target_link_libraries(test_intlist utils)
 
@@ -38,6 +41,9 @@ target_link_libraries(test_minimize automata automataio utils)
 
 add_executable(test_integrity2 ${test_dir}/test_integrity2.c)
 target_link_libraries(test_integrity2 automataio automata utils)
+
+add_executable(test_parser ${test_dir}/test_parser.c)
+target_link_libraries(test_parser parser)
 
 enable_testing()
 
