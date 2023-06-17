@@ -83,8 +83,8 @@ int derive_Tp(char *input, int *cc_idx, Automaton **a) {
     if (intset_contains(ds[5], input[*cc_idx])) {
         Automaton *b, *aux;
         if (!test_cc(input, cc_idx, '.')) return 0;
-        if (!derive_F(input, cc_idx, b)) return 0;
-        if (!derive_Tp(input, cc_idx, b)) return 0;
+        if (!derive_F(input, cc_idx, &b)) return 0;
+        if (!derive_Tp(input, cc_idx, &b)) return 0;
         aux = *a;
         *a = automaton_concat(*a, b);
         automaton_free(aux);
