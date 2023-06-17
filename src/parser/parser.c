@@ -19,13 +19,17 @@ int derive_F(char *input, int *cc_idx, Automaton **a);
 int derive_Fp(char *input, int *cc_idx, Automaton **a);
 int derive_P(char *input, int *cc_idx, Automaton **a);
 int derive_L(char *input, int *cc_idx, Automaton **a);
+Automaton *create_automaton_from_char(char c);
 
 
 int parse(char *input, Automaton **a) {
     get_directive_symbols();
 
     int cc_idx = 0;
-    derive_S(input, &cc_idx, a);
+    if (!derive_S(input, &cc_idx, a)) {
+        free_directive_symbols();
+        return 0;
+    }
 
     free_directive_symbols();
     return input[cc_idx] == '\0';
@@ -140,7 +144,7 @@ int derive_L(char *input, int *cc_idx, Automaton **a) {
 Automaton *create_automaton_from_char(char c) {
     IntSet *alphabet = intset_create_from_value(c);
     IntSet *finals = intset_create_from_value(1);
-    Automaton *a = create_automaton(2, alphabet,0,finals);
+    Automaton *a = automaton_create(2, alphabet,0,finals);
     automaton_add_transition(a, 0, c, 1);
     return a;
 }
