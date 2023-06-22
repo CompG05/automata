@@ -1,15 +1,54 @@
 # automata
 
-This project is for the 1<sup>st</sup> and 2<sup>nd</sup> PAs for the Automata and Languajes course
+This project is for the Practical Assignments for the Automata and Languages course.
 
-Authors:
+In the section [PA3](#pa3---regex-parser) can be found information about the 3rd practical assignment. The first and second assignments are explained in the [The Project](#the-project) section.
+
+### Authors:
 
 - D'Autilio Joel
 - Rossi Pablo
 
+### Building
+
 This project requires cmake for building.
 
 To build, execute [build.sh](build.sh).
+
+## PA3 - Regex parser
+
+### Execute
+
+A [minigrep](bin/minigrep) executable is built into the /bin directory that checks whether a given regex accepts a given string. Example:
+
+    $ bin/minigrep "a.(b|c)*.a" abcba
+    > Accepted
+
+    $ bin/minigrep "a.(b|c)*.a" bab
+    > Rejected
+
+### Main files
+
+The main files for this assignment are:
+    
+- [regex_grammar.txt](regex_grammar.txt) contains the grammar for a regex in LL(1).
+- [parser.c](src/parser/parser.c) contains the parse() function to check whether a given regex is valid, and generate an automaton if it is.
+- [minigrep_utils.c](src/minigrep_utils.c) contains the minigrep() function to check whether a given string is accepted by a given regex.
+
+### Tests
+
+The following tests can be run via ctest:
+
+    cd build
+    ctest
+
+or by changing into the [bin/](bin) directory and executing them.
+
+- [test_parser](tests/test_parser.c) test that the parser accepts valid regexs and rejects invalid ones.
+- [test_parser_build_automaton](tests/test_parser_build_automaton.c) test that the parser builds correct automata.
+- [test_minigrep](tests/test_minigrep.c) Test that minigrep accepts and rejects the correct strings, given a regex.
+
+## The project
 
 The main files are:
 
