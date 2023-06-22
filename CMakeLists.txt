@@ -21,8 +21,11 @@ add_library(automataio ${automataio_sources})
 add_library(parser src/parser/parser.c)
 target_link_libraries(parser automata utils)
 
+add_library(minigrep_utils src/minigrep_utils.c)
+target_link_libraries(minigrep_utils parser)
+
 add_executable(minigrep src/minigrep.c)
-target_link_libraries(minigrep parser)
+target_link_libraries(minigrep minigrep_utils)
 
 add_executable(test_intlist ${test_dir}/test_intlist.c)
 target_link_libraries(test_intlist utils)
@@ -51,6 +54,9 @@ target_link_libraries(test_parser parser)
 add_executable(test_parser_build_automaton ${test_dir}/test_parser_build_automaton.c)
 target_link_libraries(test_parser_build_automaton parser automataio)
 
+add_executable(test_minigrep ${test_dir}/test_minigrep.c)
+target_link_libraries(test_minigrep minigrep_utils)
+
 enable_testing()
 
 add_test(NAME test_intlist COMMAND $<TARGET_FILE:test_intlist>)
@@ -59,3 +65,5 @@ add_test(NAME test_automata COMMAND $<TARGET_FILE:test_automata>)
 add_test(NAME test_integrity COMMAND $<TARGET_FILE:test_integrity>)
 add_test(NAME test_automata_ops COMMAND $<TARGET_FILE:test_automata_ops>)
 add_test(NAME test_integrity2 COMMAND $<TARGET_FILE:test_integrity2>)
+add_test(NAME test_parser_build_automaton COMMAND $<TARGET_FILE:test_parser_build_automaton>)
+add_test(NAME test_minigrep COMMAND $<TARGET_FILE:test_minigrep>)

@@ -141,9 +141,9 @@ IntSet *move(Automaton *automaton, IntSet *states, char symbol) {
 
 Automaton *automaton_determinize(Automaton *automaton) {
     IntSetIterator *alphabet_it;
-    IntSet *T[(int)pow(2, automaton->num_states)];
+    IntSet *T [automaton->num_states * 10];
     IntSet *start_set, *final_states, *move_set, *M, *to;
-    Transition *transitions[(int)pow(2, automaton->num_states) * MAX_ALPHABET_SIZE];
+    Transition *transitions[automaton->num_states * MAX_ALPHABET_SIZE];
     int transitions_size = 0;
     int t_size, counted, M_index;
     char symbol;
