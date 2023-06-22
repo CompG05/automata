@@ -3,8 +3,10 @@
 #include "minigrep_utils.h"
 
 int test_regex_with_strings(char *er, char* accepted_str[], char* rejected_str[]) {
+    printf("Testing for %s\n\n", er);
+
     for (int i=0; i<3; i++){
-        printf("Testing %s with %s (Expected: Accepted)\n", er, accepted_str[i]);
+        printf("Testing %s (Expected: Accepted)\n", accepted_str[i]);
         if (!minigrep(er,accepted_str[i])) {
             printf("Result: Rejected\n");
             exit(EXIT_FAILURE);
@@ -15,7 +17,7 @@ int test_regex_with_strings(char *er, char* accepted_str[], char* rejected_str[]
     printf("\n");
 
     for (int i=0; i<3; i++){
-        printf("Testing %s with %s (Expected: Rejected)\n", er, rejected_str[i]);
+        printf("Testing %s (Expected: Rejected)\n", rejected_str[i]);
         if (minigrep(er,rejected_str[i])) {
             printf("Result: Accepted\n");
             exit(EXIT_FAILURE);
