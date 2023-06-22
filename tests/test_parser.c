@@ -28,5 +28,7 @@ int main() {
         }
     }
 
+    printf("\nAll test passed!\n");
+
     return 0;
 }

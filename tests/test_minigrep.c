@@ -12,6 +12,8 @@ int test_regex_with_strings(char *er, char* accepted_str[], char* rejected_str[]
         printf("Result: Accepted\n");
     }
 
+    printf("\n");
+
     for (int i=0; i<3; i++){
         printf("Testing %s with %s (Expected: Rejected)\n", er, rejected_str[i]);
         if (minigrep(er,rejected_str[i])) {
@@ -20,6 +22,8 @@ int test_regex_with_strings(char *er, char* accepted_str[], char* rejected_str[]
         }
         printf("Result: Rejected\n");
     }
+
+    printf("\n\n");
 }
 
 int main() {
@@ -36,4 +40,7 @@ int main() {
     test_regex_with_strings(re3,
                             (char *[]){"cababcacba", "abcbaaa", "abcabababa"},
                             (char *[]){"abc", "cabcc", ""});
+
+
+    printf("\nAll test passed!\n");
 }

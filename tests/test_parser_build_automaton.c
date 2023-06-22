@@ -25,8 +25,10 @@ int test(char* file_id, char *er, char* accepted_str[], char* rejected_str[]) {
     Automaton *det_a = automaton_determinize(a);
     automaton_free(a);
 
+    printf("Testing for %s\n\n", er);
+
     for (int i=0; i<3; i++){
-        printf("Testing automaton %s with %s (Expected: Accepted)\n", er, accepted_str[i]);
+        printf("Testing %s (Expected: Accepted)\n", accepted_str[i]);
         if (!automaton_accepts(det_a,accepted_str[i])){
             automaton_free(det_a);
             printf("Result: Rejected\n");
@@ -38,7 +40,7 @@ int test(char* file_id, char *er, char* accepted_str[], char* rejected_str[]) {
     printf("\n");
 
     for (int i=0; i<3; i++){
-        printf("Testing automaton %s with %s (Expected: Rejected)\n", er, rejected_str[i]);
+        printf("Testing %s (Expected: Rejected)\n", rejected_str[i]);
         if (automaton_accepts(det_a,rejected_str[i])){
             automaton_free(det_a);
             printf("Result: Accepted\n");
@@ -46,7 +48,7 @@ int test(char* file_id, char *er, char* accepted_str[], char* rejected_str[]) {
         }
         printf("Result: Rejected\n");
     }
-    printf("");
+    printf("\n\n");
 
     automaton_free(det_a);
 }
@@ -63,6 +65,8 @@ int main() {
     test("re3", re3,
         (char *[]){"abca", "abcbaaa", "abcabababa"},
         (char *[]){"bcab", "cabcab", ""});
+
+    printf("\nAll test passed!\n");
 
     return 0;
 }
