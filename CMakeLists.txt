@@ -24,6 +24,9 @@ target_link_libraries(parser automata utils)
 add_library(minigrep_utils src/minigrep_utils.c)
 target_link_libraries(minigrep_utils parser)
 
+add_executable(parse src/parse.c)
+target_link_libraries(parse parser automataio)
+
 add_executable(minigrep src/minigrep.c)
 target_link_libraries(minigrep minigrep_utils)
 

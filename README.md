@@ -17,9 +17,16 @@ To build, execute [build.sh](build.sh).
 
 ## PA3 - Regex parser
 
-### Execute
+Simple parser implementation for regular expressions that accept alphabet {'a', 'b', 'c'} and the operations: option (|), concatenation (.) and Kleene closure (*).
 
-A [minigrep](bin/minigrep) executable is built into the /bin directory that checks whether a given regex accepts a given string. Example:
+### Execute
+Two executables are built into the /bin directory:
+
+1. A [parse](bin/parse) executable that builds an automaton from a regex if it's valid.
+
+
+2. A [minigrep](bin/minigrep) executable that checks whether a given regex accepts a given string. Example:
+
 
     $ bin/minigrep "a.(b|c)*.a" abcba
     > Accepted
@@ -33,7 +40,7 @@ The main files for this assignment are:
     
 - [regex_grammar.txt](regex_grammar.txt) contains the grammar for a regex in LL(1).
 - [parser.c](src/parser/parser.c) contains the parse() function to check whether a given regex is valid, and generate an automaton if it is.
-- [minigrep_utils.c](src/minigrep_utils.c) contains the minigrep() function to check whether a given string is accepted by a given regex.
+- [minigrep_utils.c](src/minigrep_utils.c) contains the minigrep() function to check whether a given string contains an accepted substring by a given regex.
 
 ### Tests
 
